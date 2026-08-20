@@ -168,9 +168,8 @@ describe("GET /scans/:id",()=>{
         );
     });    
     it("should return a 404 status", async()=>{
-        // const newScan = await createTestScan();
-        // const nonExistingScanId = newScan.id + 1;
-        const nonExistingScanId = 9999999;
+        const newScan = await createTestScan();
+        const nonExistingScanId = newScan.id + 1;
         const response = await request(app).get(`/scans/${nonExistingScanId}`);
 
         expect(response.status).toBe(404);
