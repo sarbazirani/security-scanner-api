@@ -1,5 +1,6 @@
 import request from 'supertest';
-import { describe,expect,it } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { pool } from "../src/config/database";
 import app from '../src/app'
 import { SCAN_STATUSES } from '../src/constants/scan-statuses';
 
@@ -14,6 +15,14 @@ const createTestScan = async () => {
 
   return response.body;
 };
+
+beforeEach(async () => {
+  await pool.query("TRUNCATE TABLE scans RESTART IDENTITY");
+});
+
+afterAll(async () => {
+  await pool.end();
+});
 
 describe("GET /", ()=>{
     it("should respond with the home page", async()=>{
