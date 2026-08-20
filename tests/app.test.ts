@@ -82,6 +82,32 @@ describe("POST /scans",()=>{
         );
         expect(SCAN_STATUSES).toContain(response.body.status);
     });
+    it("should respond 400 status",async()=>{
+        const targetUrl = "htt://example.com";
+        const response = await request(app)
+        .post("/scans")
+        .send({
+            target:targetUrl,
+        });
+
+        expect(response.status).toBe(400);
+        expect(response.type).toBe("application/json");
+        expect(response.body).toEqual(
+            expect.objectContaining({
+                error: "Target must be a valid HTTP/HTTPS URL",
+            })
+        );
+    });
+    it("should reject non-HTTP/HTTPS targets", async () => {
+        const response = await request(app)
+            .post("/scans")
+            .send({ target: "ftp://example.com" });
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe(
+            "Target must be a valid HTTP/HTTPS URL"
+        );
+    });
 });
 
 describe("PATCH /scans/:id/status",()=>{

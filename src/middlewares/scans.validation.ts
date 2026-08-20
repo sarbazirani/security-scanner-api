@@ -8,9 +8,21 @@ export const validateCreateScan = (req:Request, res:Response, next:NextFunction)
   if (typeof target !== "string" || target.trim() === "") {
     return next(new AppError("Target must be a non-empty string", 400));
   }
-  req.body.target = target.trim();
+  const trimmedTarget = target.trim();
+
+  try {
+    const parsedUrl = new URL(trimmedTarget);
+
+    if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+      return next(new AppError("Target must be a valid HTTP/HTTPS URL", 400));
+    }
+  } catch {
+    return next(new AppError("Target must be a valid HTTP/HTTPS URL", 400));
+  }
+  req.body.target = trimmedTarget;
   next();
 }
+
 export const validateUpdateScanStatus = (req:Request, res:Response, next:NextFunction) => {
   const status = req.body.status;
   if(typeof status!=="string"||!SCAN_STATUSES.includes(status as any)){
