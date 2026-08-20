@@ -167,3 +167,12 @@ describe("GET /scans/:id",()=>{
         );
     });    
 });
+describe("Swagger documentation", () => {
+  it("should serve the Swagger UI", async () => {
+    const response = await request(app).get("/api-docs/");
+
+    expect(response.status).toBe(200);
+    expect(response.type).toBe("text/html");
+    expect(response.text).toContain("swagger-ui");
+  });
+});

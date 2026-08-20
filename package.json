@@ -11,7 +11,7 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "test": "vitest run",
     "test:watch": "vitest"
-    },
+  },
   "keywords": [],
   "author": "Mohammad Shojaa",
   "license": "ISC",
@@ -19,13 +19,17 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "pg": "^8.23.0"
+    "pg": "^8.23.0",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^26.2.0",
     "@types/pg": "^8.23.1",
     "@types/supertest": "^7.2.1",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "supertest": "^7.2.2",
     "tsx": "^4.23.12",
     "typescript": "^7.0.2",
