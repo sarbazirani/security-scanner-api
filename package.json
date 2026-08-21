@@ -9,8 +9,8 @@
     "build:start": "npm run build && npm run start",
     "dev": "tsx watch src/index.ts",
     "db:migrate": "tsx scripts/migrate.ts",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "cross-env NODE_ENV=test vitest run",
+    "test:watch": "cross-env NODE_ENV=test vitest"
   },
   "keywords": [],
   "author": "Mohammad Shojaa",
@@ -30,6 +30,7 @@
     "@types/supertest": "^7.2.1",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "cross-env": "^10.1.0",
     "supertest": "^7.2.2",
     "tsx": "^4.23.12",
     "typescript": "^7.0.2",
