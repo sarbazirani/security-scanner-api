@@ -4,8 +4,21 @@ import errorHandler from "./middlewares/error.middleware";
 import AppError from "./utils/app-error";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.config";
+import securityRouter from "./routes/security.routes";
+import cors from 'cors';
+import helmet from "helmet";
 
 const app = express();
+app.disable("x-powered-by");
+app.use(helmet());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 
@@ -18,6 +31,7 @@ app.use(
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
+app.use("/security", securityRouter);
 app.use("/scans", scansRouter);
 
 app.use((req, res, next) => {
